@@ -1,155 +1,76 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Runtime.InteropServices;
-using System.Xml.Serialization;
 
-namespace MyApp // Note: actual namespace depends on the project name.
+namespace RockPaperScissors
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-
             Random random = new Random();
             bool playAgain = true;
-            String player;
-            String computer;
-            String answer;
-            int wins = 0;
-            int lose = 0;
-            int tie = 0;
 
+            int wins = 0;
+            int losses = 0;
+            int ties = 0;
 
             while (playAgain)
             {
-                player = "";
-                computer = "";
-                answer = "";
-                
+                Console.Clear(); // Clear the console for a cleaner output
 
+                string[] choices = { "ROCK", "PAPER", "SCISSOR" };
 
+                string playerChoice;
+                string computerChoice = choices[random.Next(0, 3)];
 
+                Console.WriteLine("Enter ROCK, PAPER, or SCISSOR:");
+                playerChoice = Console.ReadLine().ToUpper();
 
-                while (player != "ROCK" && player != "PAPER" && player != "SCISSOR")
+                if (Array.IndexOf(choices, playerChoice) == -1)
                 {
-                    Console.WriteLine("Enter ROCK, PAPER, SCISSOR");
-                    player = Console.ReadLine();
-                    player = player.ToUpper();
+                    Console.WriteLine("Invalid choice. Try again.");
+                    continue;
                 }
 
-                 
-                switch (random.Next(1, 4))
+                Console.WriteLine("Player: " + playerChoice);
+                Console.WriteLine("Computer: " + computerChoice);
+
+                if (playerChoice == computerChoice)
                 {
-                    case 1:
-                        computer = "ROCK";
-                        break;
-                    case 2:
-                        computer = "PAPER";
-                        break;
-                    case 3:
-                        computer = "SCISSOR";
-                        break;
+                    Console.WriteLine("It's a tie!");
+                    ties++;
+                }
+                else if ((playerChoice == "ROCK" && computerChoice == "SCISSOR") ||
+                         (playerChoice == "PAPER" && computerChoice == "ROCK") ||
+                         (playerChoice == "SCISSOR" && computerChoice == "PAPER"))
+                {
+                    Console.WriteLine("You WIN!");
+                    wins++;
+                }
+                else
+                {
+                    Console.WriteLine("You Lose!");
+                    losses++;
                 }
 
-                Console.WriteLine("Player: " + player);
-                Console.WriteLine("Computer: " + computer);
-                
+                Console.WriteLine("Wins: " + wins);
+                Console.WriteLine("Losses: " + losses);
+                Console.WriteLine("Ties: " + ties);
 
-                switch (player)
-                {
-                    case "ROCK":
-                        if (computer == "ROCK")
-                        {
-                            Console.WriteLine("It's a tie!");
-                            tie++;
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("You Lose!");
-                            lose++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("You WIN");
-                            wins++;
-                        }
-                        break;
-                    case "PAPER":
-                        if (computer == "ROCK")
-                        {
-                            Console.WriteLine("You WIN");
-                            wins++;
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("It's a tie!");
-                            tie++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("You Lose!");
-                            lose++;
-                        }
-                        break;
-                    case "SCISSOR":
-                        if (computer == "ROCK")
-                        {
-                            Console.WriteLine("You Lose!");
-                            lose++;
-                        }
-                        else if (computer == "PAPER")
-                        {
-                            Console.WriteLine("You WIN");
-                            wins++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("It's a tie!");
-                            tie++;
-                        }
-                        break;
-                }
-
-                while (wins > 0 ||  tie > 0 || lose > 0)
-                {
-
-                    Console.WriteLine(" SCORE ");
-                    Console.WriteLine("Wins: " + wins);
-                    Console.WriteLine("Lose: " + lose);
-                    Console.WriteLine("Tie: " + tie);
-                    
-                }
-
+                Console.WriteLine("Do you want to play again? (Y/N)");
+                string answer = Console.ReadLine().ToUpper();
 
                 while (answer != "Y" && answer != "N")
                 {
-                    Console.WriteLine("Do you wanna keep playing? Y / N");
-                    answer = Console.ReadLine();
-                    answer = answer.ToUpper();
-
-                    if (answer == "Y")
-                    {
-                        playAgain = true;
-                    } 
-                    else if (answer == "N")
-                    {
-                        Console.WriteLine("Thanks for playing!");
-                        playAgain = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please write a valid response!");
-                    }
+                    Console.WriteLine("Please write a valid response (Y/N)");
+                    answer = Console.ReadLine().ToUpper();
                 }
-                
 
+                if (answer == "N")
+                {
+                    Console.WriteLine("Thanks for playing!");
+                    playAgain = false;
+                }
             }
-
-
-
-            Console.ReadKey();
         }
-
     }
 }
