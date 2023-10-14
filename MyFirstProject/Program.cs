@@ -16,12 +16,19 @@ namespace MyApp // Note: actual namespace depends on the project name.
             String player;
             String computer;
             String answer;
+            int wins = 0;
+            int lose = 0;
+            int tie = 0;
+
 
             while (playAgain)
             {
                 player = "";
                 computer = "";
                 answer = "";
+                
+
+
 
 
                 while (player != "ROCK" && player != "PAPER" && player != "SCISSOR")
@@ -38,7 +45,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         computer = "ROCK";
                         break;
                     case 2:
-                        computer = "PAPPER";
+                        computer = "PAPER";
                         break;
                     case 3:
                         computer = "SCISSOR";
@@ -47,7 +54,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 Console.WriteLine("Player: " + player);
                 Console.WriteLine("Computer: " + computer);
-
+                
 
                 switch (player)
                 {
@@ -55,49 +62,66 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         if (computer == "ROCK")
                         {
                             Console.WriteLine("It's a tie!");
+                            tie++;
                         }
                         else if (computer == "PAPER")
                         {
                             Console.WriteLine("You Lose!");
+                            lose++;
                         }
                         else
                         {
                             Console.WriteLine("You WIN");
+                            wins++;
                         }
                         break;
                     case "PAPER":
                         if (computer == "ROCK")
                         {
                             Console.WriteLine("You WIN");
+                            wins++;
                         }
                         else if (computer == "PAPER")
                         {
                             Console.WriteLine("It's a tie!");
+                            tie++;
                         }
                         else
                         {
                             Console.WriteLine("You Lose!");
+                            lose++;
                         }
                         break;
                     case "SCISSOR":
                         if (computer == "ROCK")
                         {
                             Console.WriteLine("You Lose!");
+                            lose++;
                         }
                         else if (computer == "PAPER")
                         {
                             Console.WriteLine("You WIN");
+                            wins++;
                         }
                         else
                         {
                             Console.WriteLine("It's a tie!");
+                            tie++;
                         }
                         break;
                 }
-                
-                
 
-               
+                while (wins > 0 ||  tie > 0 || lose > 0)
+                {
+
+                    Console.WriteLine(" SCORE ");
+                    Console.WriteLine("Wins: " + wins);
+                    Console.WriteLine("Lose: " + lose);
+                    Console.WriteLine("Tie: " + tie);
+                    
+                }
+
+
                 while (answer != "Y" && answer != "N")
                 {
                     Console.WriteLine("Do you wanna keep playing? Y / N");
